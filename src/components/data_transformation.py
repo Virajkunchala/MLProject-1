@@ -1,4 +1,6 @@
+import os
 import sys
+sys.path.append('C:\\DSCerti\\MLProject01\\')
 from dataclasses import dataclass
 
 import numpy as np 
@@ -36,7 +38,7 @@ class DataTransformation:
             
             numerical_pipeline=Pipeline(
                 steps=[
-                    ("imputer",SimpleImputer(statergy="median")),
+                    ("imputer",SimpleImputer(strategy="median")),
                     ("scaler",StandardScaler())
                 ]
                 
@@ -46,7 +48,7 @@ class DataTransformation:
                steps=[
                    ("imputer",SimpleImputer(strategy="most_frequent")),
                    ("one_hot_encoder",OneHotEncoder()),
-                   ("scaler",StandardScaler())
+                   ("scaler",StandardScaler(with_mean=False))
                    
                ] 
                 
@@ -70,7 +72,7 @@ class DataTransformation:
         except Exception as e:
             raise CustomException(e,sys)
         
-    def intiate_data_transformation(self,train_path,test_path):
+    def initiate_data_transformation(self,train_path,test_path):
         
         try:
             train_df=pd.read_csv(train_path)
@@ -95,7 +97,7 @@ class DataTransformation:
             )
             
             input_feature_train_arr=preprocessing_obj.fit_transform(input_feature_train_df)
-            input_feature_test_arr=preprocessing_obj.fi_transform(target_feature_test_df)
+            input_feature_test_arr=preprocessing_obj.fit_transform(input_feature_test_df)
             
             train_arr =np.c_[
                 input_feature_train_arr,np.array(target_feature_train_df)
@@ -115,6 +117,6 @@ class DataTransformation:
                 self.data_transformation_config.preprocessor_obj_file_path,
             )
 
-        except:
-            pass
+        except Exception as e:
+            raise CustomException(e,sys)
     

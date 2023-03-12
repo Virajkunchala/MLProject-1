@@ -1,5 +1,7 @@
 import os
 import sys
+sys.path.append('C:\\DSCerti\\MLProject01\\')
+# print(sys.path)
 from src.exception import CustomException
 from src.logger import logging
 import pandas as pd
@@ -51,6 +53,6 @@ if __name__=="__main__":
     train_data,test_data=obj.intiate_data_ingestion()
     
     data_transformation=DataTransformation()
-    data_transformation.intiate_data_ingestion(train_data,test_data)
+    data_transformation.initiate_data_transformation(train_data,test_data)
 
 
